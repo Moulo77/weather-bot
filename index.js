@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const discord = require('discord.js');
-const { Canvas } = require('canvas');
+const Canvas = require('canvas');
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILDS, discord.Intents.FLAGS.GUILD_MESSAGES]});
 const token = 'OTE1NTkzMjMxMTcyMDEwMDA0.Yad2pQ._RbJHGH__g69_LZHFXJvKDjK-PM';
 const apiKey = '08a95a313addec0be8e31209e7c984a0';
@@ -37,19 +37,28 @@ client.on("messageCreate", message =>{
                 fetch(url)
                     .then(response => response.json())
                     .then(data =>{
-                        const { main, name, humidity, pressure, wind, clouds, precipitation, lastupdate} = data;
+                        const { main, name, weather, humidity, pressure, wind, clouds, precipitation, lastupdate} = data;
     
-                        let response = `Weather in ${name} : \nTemperature : \`${main.temp}${unitSign}\``;
+                        let title = `Weather in ${name}`;
 
-                        if(args.includes('all')){
-                            response += `\nWind : \`${wind}\` \n`
-                            ;
-                        }
+                        const exampleEmbed = new discord.MessageEmbed()
+                            .setColor('#0099ff')
+                            .setTitle(title)
+                            .setDescription('These data has been updated : ')
+                            .setThumbnail('http://openweathermap.org/img/wn/'+weather[0].icon+'@2x.png')
+                            .addFields(
+                                { name: 'Temperature', value: `${main.temp}${unitSign}` },
+                                { name: '\u200B', value: '\u200B' },
+                                { name: 'Inline field title', value: 'Some value here', inline: true },
+                                { name: 'Inline field title', value: 'Some value here', inline: true },
+                            )
+                            .setTimestamp();
+
                         
-                        message.reply(response);
+                        message.reply({embeds: [exampleEmbed]});
                     })
-                    .catch(()=>{
-                        message.channel.send("Please search for a valid city");
+                    .catch((error)=>{
+                        message.channel.send(error.message);
                     });
             }
         }else{
