@@ -37,22 +37,27 @@ client.on("messageCreate", message =>{
                 fetch(url)
                     .then(response => response.json())
                     .then(data =>{
-                        const { main, name, weather, humidity, pressure, wind, clouds, precipitation, lastupdate} = data;
-    
+                        const { main, name, weather, wind, lastupdate} = data;
+                        
+                        console.log(data);
                         let title = `Weather in ${name}`;
 
                         const exampleEmbed = new discord.MessageEmbed()
                             .setColor('#0099ff')
                             .setTitle(title)
-                            .setDescription('These data has been updated : ')
+                            .setDescription(`These data has been updated : ${lastupdate}`)
                             .setThumbnail('http://openweathermap.org/img/wn/'+weather[0].icon+'@2x.png')
                             .addFields(
                                 { name: 'Temperature', value: `${main.temp}${unitSign}` },
-                                { name: '\u200B', value: '\u200B' },
-                                { name: 'Inline field title', value: 'Some value here', inline: true },
-                                { name: 'Inline field title', value: 'Some value here', inline: true },
+                                { name: 'Wheather', value: `${weather[0].main}: ${weather[0].description}`},
+                                { name: 'Wind', value: `${wind.speed}m/s`},
                             )
                             .setTimestamp();
+                            if(args.includes('all')){
+                                exampleEmbed.addFields(
+                                    { name: 'Pressure', value: `${main.pressure}hPa`},
+                                );
+                            }
 
                         
                         message.reply({embeds: [exampleEmbed]});
