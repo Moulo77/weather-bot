@@ -16,7 +16,7 @@ client.on("messageCreate", message =>{
         
         if(cmd_name === "w" &&  args.length){
             if(args[0] === "help"){
-                message.reply(`use \`!w <city name>\` to know the weather in this city\n__options__ :\n     - **units** as Kelvin, Celsius, Fahrenheit  *optionnal*`);
+                message.reply(`use \`!w <city name>\` to know the weather in this city\n__options__ :\n     - **units** as Kelvin, Celsius, Fahrenheit  *optionnal*\n     - **all** to get further informations`);
             }else{
                 const city = args[0];
                 const units = ["celsius", "kelvin", "fahrenheit"];
@@ -38,18 +38,15 @@ client.on("messageCreate", message =>{
                     .then(response => response.json())
                     .then(data =>{
                         const { main, name, weather, wind, lastupdate} = data;
-                        
-                        console.log(data);
                         let title = `Weather in ${name}`;
 
                         const exampleEmbed = new discord.MessageEmbed()
                             .setColor('#0099ff')
                             .setTitle(title)
-                            .setDescription(`These data has been updated : ${lastupdate}`)
                             .setThumbnail('http://openweathermap.org/img/wn/'+weather[0].icon+'@2x.png')
                             .addFields(
                                 { name: 'Temperature', value: `${main.temp}${unitSign}` },
-                                { name: 'Wheather', value: `${weather[0].main}: ${weather[0].description}`},
+                                { name: 'Wheather', value: `${weather[0].description}`},
                                 { name: 'Wind', value: `${wind.speed}m/s`},
                             )
                             .setTimestamp();
