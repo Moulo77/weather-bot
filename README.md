@@ -1,5 +1,5 @@
 # weather-bot
-A discord bot that display the actuel weather of a given city.
+A discord bot that display the actual weather of a given city.
 
 ## Usage
 To get the weather, type in ```!w [city name]```
