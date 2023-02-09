@@ -7,7 +7,7 @@ const apiKey = 'YOUR_API_KEY';
 const PREFIX = "!";
 
 client.once('ready', ()=> {
-    console.log('Bravo bg ca fonctionne');
+    console.log('ready');
 });
 
 client.on("messageCreate", message =>{
