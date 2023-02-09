@@ -2,8 +2,8 @@ const fetch = require('node-fetch');
 const discord = require('discord.js');
 const Canvas = require('canvas');
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILDS, discord.Intents.FLAGS.GUILD_MESSAGES]});
-const token = 'OTE1NTkzMjMxMTcyMDEwMDA0.Yad2pQ._RbJHGH__g69_LZHFXJvKDjK-PM';
-const apiKey = '08a95a313addec0be8e31209e7c984a0';
+const token = 'YOUR_DISCORD_TOKEN';
+const apiKey = 'YOUR_API_KEY';
 const PREFIX = "!";
 
 client.once('ready', ()=> {
